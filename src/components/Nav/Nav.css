@@ -1,0 +1,21 @@
+.navstyle {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+  width: 100%;
+  margin-bottom: 20px;
+  color: white;
+  background: blue;
+  opacity: 0.8;
+  text-emphasis: bold;
+}
+
+.navlink {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  padding: 0.7rem 2rem;
+  margin-left: 10px;
+  margin-bottom: 1rem;
+  color: white;
+}
