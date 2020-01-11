@@ -1,0 +1,7 @@
+.AlertStyle {
+  color: 'white';
+  background-color: 'red';
+  border: 5px clear rgba(68, 64, 82, 0.37);
+  width: 30%;
+  margin-bottom: 10px;
+}

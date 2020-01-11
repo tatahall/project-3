@@ -1,0 +1,21 @@
+.CardStyle {
+  text-align: center;
+  padding: 10px;
+  border: #ccc 1px dotted;
+  margin: 10px 0;
+}
+
+.ImgStyle {
+  width: 60px;
+}
+
+.ButtonStyle {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
