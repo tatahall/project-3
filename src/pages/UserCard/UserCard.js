@@ -10,7 +10,7 @@ const UserCard = props => {
       <img src={props.user.avatar_url} alt={''} className='ImgStyle' />
       <div>
         {/* takes you to one user's information page*/}
-        <Link to={`/user/${props.user.login}`} className='ButtonStyle'>
+        <Link to={`/user/${props.user.login}`} className='ProfileButtonStyle'>
           Profile
         </Link>
       </div>
