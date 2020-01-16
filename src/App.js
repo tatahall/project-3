@@ -23,17 +23,54 @@ class App extends Component {
     this.setState({ users: res.data });
   }
 
-  setAlert = message => {
-    this.setState({ alert: { message } });
-    setTimeout(() => this.setState({ alert: null }), 3000);
-  };
-
-  searchUsers = async text => {
+  searchUsers = async name => {
+    let query = ``;
+    if (name) {
+      query = `${name}`;
+    }
     const res = await axios.get(
-      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+      `https://api.github.com/search/users?q=${query}&per_page=100&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
     );
 
     this.setState({ users: res.data.items });
+  };
+
+  searchManyParams = async (location, repositories, language) => {
+    console.log(
+      'In App.js, location is ' +
+        location +
+        ' and repositories is ' +
+        repositories +
+        ' and language is ' +
+        language
+    );
+    let query = ``;
+    if (location) {
+      query = `location:${location}`;
+    }
+
+    if ((location, repositories)) {
+      query = `location:${location}+repos:>${repositories}`;
+    }
+
+    if ((location, language)) {
+      query = `location:${location}+language:${language}`;
+    }
+
+    if ((location, repositories, language)) {
+      query = `location:${location}+repos:>${repositories}+language:${language}`;
+    }
+
+    const res = await axios.get(
+      `https://api.github.com/search/users?q=${query}&per_page=100&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+
+    this.setState({ users: res.data.items });
+  };
+
+  showAlert = message => {
+    this.setState({ alert: { message } });
+    setTimeout(() => this.setState({ alert: null }), 1750);
   };
 
   getUser = async username => {
@@ -50,7 +87,7 @@ class App extends Component {
     return (
       <Router>
         <div className='App'>
-          <Nav title='Techie Finder' icon='fas fa-user-cog' />
+          <Nav title='Git Techie' icon='fas fa-user-cog' />
 
           <div className='container'>
             <Switch>
@@ -61,10 +98,13 @@ class App extends Component {
                 render={props => (
                   <div>
                     {/* calls on the function searchUsers with props passed up from Search.js */}
+                    <Alert alert={this.state.alert} />
                     <Search
-                      setAlert={this.setAlert}
                       searchUsers={this.searchUsers}
+                      searchManyParams={this.searchManyParams}
+                      showAlert={this.showAlert}
                       showClearUsers={
+                        // boolean value is passed to "this.props.showClearUsers" in Search.js
                         this.state.users.length > 0 ? true : false
                       }
                       clearUsers={this.clearUsers}
@@ -75,7 +115,7 @@ class App extends Component {
               />
 
               {/* route to the profile manager app */}
-              <Route exact path='/about' component={ProfileManager} />
+              <Route exact path='/profilemanager' component={ProfileManager} />
 
               {/* route to page displaying one user  */}
               <Route
@@ -91,8 +131,6 @@ class App extends Component {
                 )}
               />
             </Switch>
-
-            <Alert alert={this.state.alert} />
           </div>
         </div>
       </Router>

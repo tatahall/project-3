@@ -38,7 +38,9 @@ export class UserProfile extends Component {
             ) : null}
           </h3>
           <h3>
-            <a href={this.props.user.html_url}>Github Profile</a>
+            <a href={this.props.user.html_url} target='_blank'>
+              Github Profile
+            </a>
           </h3>
           <h3>
             Location: {''}
